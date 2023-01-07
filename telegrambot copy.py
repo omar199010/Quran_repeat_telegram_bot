@@ -10,9 +10,11 @@ import telepot
 import warnings
 warnings.filterwarnings("ignore")
 
-
+# f = open("/home/msa/TelegramBot/bottoken.txt", 'r')
+# bottoken = f.readline()
+# f.close()
 bottoken = '5296769845:AAHSNpG_pPfECfa_wTXuot4FUhERxlfQDlU'
-
+print(bottoken)
 
 # Global variables
  #list
@@ -160,6 +162,7 @@ Quraa2 = [
 debug = 0 
  #string
  #DataFrame
+# df = pd.read_csv('//home/msa/TelegramBot/Quran_repeat_telegram_bot/Quran_aya_index.csv')
 df = pd.read_csv('Quran_aya_index.csv')
 
 
@@ -169,7 +172,8 @@ def handle(msg):
     command = msg['text']
 
 
-    bot.sendMessage(chat_id, "Command :"+command)
+    bot.sendMessage(chat_id, "Command 2 :"+command)
+    print(chat_id,command)
     #bot.sendMessage(chat_id, "env :"+os.environ.get('Q_ENV'))
 
 
