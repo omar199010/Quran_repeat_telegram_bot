@@ -31,6 +31,7 @@ from telegram.ext import InlineQueryHandler
 # This class is used to handle updates that contain inline queries
 from telegram.ext import ConversationHandler
 
+home = '/home/msa/TelegramBot/Quran_repeat_telegram_bot/'
 
 start_txt = '''
 **** Repeate Quran bot V0.0.1 ****
@@ -213,9 +214,6 @@ Quraa2 = [
           ] 
  #numbers
 debug = 0
- #string
- #DataFrame
-df = pd.read_csv('Quran_aya_index.csv')
 
 async def stop(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """End Conversation by command."""
@@ -312,7 +310,8 @@ async def ayat_4(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await context.bot.send_message(chat_id=update.effective_chat.id, text='Please wait ... generating the file  ')
         #print(Surah_start, Surah_end, Ayah_start, Ayah_end)
         file_name = Ayat_program(Surah_start, Surah_end, Ayah_start, Ayah_end)    
-        await context.bot.send_document(chat_id=update.effective_chat.id, document=open(file_name, 'rb'))
+        await context.bot.send_document(chat_id=update.effective_chat.id, document=open(home+file_name, 'rb'))        
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='we recommend to use VLC  ')
         await context.bot.send_message(chat_id=update.effective_chat.id, text="**** Allah Bless The Coder ****\nhttps://github.com/mohamed-soubhi")
         return ConversationHandler.END
     else:
@@ -335,7 +334,8 @@ async def Sura_Numbers(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if re.match(regex, user_entered):
         await context.bot.send_message(chat_id=update.effective_chat.id, text='Please wait ... generating the file  ')
         file_name = Surah_program(user_entered)    
-        await context.bot.send_document(chat_id=update.effective_chat.id, document=open(file_name, 'rb'))
+        await context.bot.send_document(chat_id=update.effective_chat.id, document=open(home+file_name, 'rb'))        
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='we recommend to use VLC  ')
         await context.bot.send_message(chat_id=update.effective_chat.id, text="**** Allah Bless The Coder ****\nhttps://github.com/mohamed-soubhi")
         return ConversationHandler.END
     else:
@@ -447,7 +447,7 @@ def get_aya_index(Surah,aya):
     #print(type(Surah),type(aya))
 #todo this function should be refacturized not to use df
     global  debug
-    df = pd.read_csv('.\Quran_aya_index.csv')
+    df = pd.read_csv('Quran_aya_index.csv')
     #print(df.info())
     aya_index = df[(df['Surah_Number']==Surah)&
                   (df['Ayah_Number']==aya)]    
@@ -466,10 +466,10 @@ def print_row(df_line):
 def set_start_end_ayat_index(Surah_start, Surah_end, Ayah_start, Ayah_end):
     #print(Surah_start, Surah_end, Ayah_start, Ayah_end)
     if debug == 1 :
-        #print("start from :-")
+        print("start from :-")
     AyaIndexStart = get_aya_index(Surah_start,Ayah_start)
     if debug == 1 :
-        #print("end at :-")
+        print("end at :-")
     AyaIndexEnd   = get_aya_index(Surah_end,Ayah_end)
     return (AyaIndexStart, AyaIndexEnd)
 
@@ -543,8 +543,9 @@ async def radio(update: Update, context: ContextTypes.DEFAULT_TYPE):
 https://www.atheer-radio.com/'''
     await context.bot.send_message(chat_id=update.effective_chat.id, text=text_radio)
     #todo this list need to be modified 
-    file_path = 'mp3QuranList_Generator\RadioList.m3u'
-    await context.bot.send_document(chat_id=update.effective_chat.id, document=open(file_path, 'rb'))
+    file_path = r'RadioList.m3u'
+    await context.bot.send_document(chat_id=update.effective_chat.id, document=open(home+file_path, 'rb'))        
+        await context.bot.send_message(chat_id=update.effective_chat.id, text='we recommend to use VLC  ')
     await context.bot.send_message(chat_id=update.effective_chat.id, text="**** Allah Bless The Coder ****\nhttps://github.com/mohamed-soubhi")
 
 async def caps(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -561,8 +562,12 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
     return ConversationHandler.END
 
+f = open("/home/msa/TelegramBot/bottoken.txt", 'r')
+bottoken = f.readline()
+f.close()
+
 if __name__ == '__main__':
-    application = ApplicationBuilder().token('5296769845:AAHSNpG_pPfECfa_wTXuot4FUhERxlfQDlU').build()
+    application = ApplicationBuilder().token(bottoken).build()
 
     # Add conversation handler with the states 
     sura_conv_handler = ConversationHandler(
