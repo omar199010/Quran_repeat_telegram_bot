@@ -457,7 +457,7 @@ def get_aya_index(Surah,aya):
     return list(aya_index.Ayah_index.astype(int))[0]     
 
 #used for testing and debug
-def #print_row(df_line):
+def print_row(df_line):
     #print()
     for column in df_line.columns:
         #print('\t' , column, '\t\t' ,df_line[column].values[0])
