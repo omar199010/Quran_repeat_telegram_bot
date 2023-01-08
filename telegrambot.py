@@ -457,10 +457,10 @@ def get_aya_index(Surah,aya):
     return list(aya_index.Ayah_index.astype(int))[0]     
 
 #used for testing and debug
-def #print_row(df_line):
+def print_row(df_line):
     #print()
     for column in df_line.columns:
-        #print('\t' , column, '\t\t' ,df_line[column].values[0])
+        print('\t' , column, '\t\t' ,df_line[column].values[0])
     #print()
 
 def set_start_end_ayat_index(Surah_start, Surah_end, Ayah_start, Ayah_end):
