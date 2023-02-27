@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 f = open("/home/msa/TelegramBot/bottoken.txt", 'r')
 bottoken = f.readline()
 f.close()
-#bottoken = '5296769845:AAHSNpG_pPfECfa_wTXuot4FUhERxlfQDlU'
+#bottoken = '5842529637:AAFZQxONXr0fxOHekCqAbJdZjT-6bfcsL3o'
 print(bottoken)
 
 # Global variables
